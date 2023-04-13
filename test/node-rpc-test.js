@@ -79,6 +79,7 @@ describe('RPC', function() {
     assert.strictEqual(util.revHex(node.chain.tip.hash), info);
   });
 
+
   it('should rpc getblockfilter', async () => {
     const hash = await nclient.execute('getblockhash', [node.chain.tip.height]);
     const info = await nclient.execute('getblockfilter', [hash, 'BASIC']);
@@ -236,7 +237,51 @@ describe('RPC', function() {
       connectionsCnt = await nclient.execute('getconnectioncount', []);
       assert.strictEqual(connectionsCnt, 0);
     });
+    /**
+     * 1.Should show unique nodes added
+     * 2.Should show [] when no node has been added
+     * 3.Should show only 1 of the nodes if duplicates are added
+     * 
+     */
+    it('should rpc getaddednodeinfo',async()=>{
+      const nodes = [
+        {
+          "addednode": "127.0.0.1:48444",
+          "connected": false,
+          "addresses": []
+        },
+        {
+          "addednode": "127.0.0.1:48444",
+          "connected": false,
+          "addresses": []
+        },
+        {
+          "addednode": "127.0.0.1:8333",
+          "connected": false,
+          "addresses": []
+        }
+      ];
+      const expectedOutput = [nodes[0],nodes[2]];
+      //We need to add these nodes first
+      //initial [] test 
+      const info = await nclient.execute("getaddednodeinfo",[]);
+      assert.strictEqual(info.length,0);
+      const address = nodes[0].addednode;
+      //Add first node
+      await nclient.execute('addnode', [address, 'add']);
+      const result = await nclient.execute("getaddednodeinfo",[]);
+      assert.strictEqual(result.length,1);
+      //Add duplicate node, should still show 1
+      await nclient.execute('addnode', [address, 'add']);
+      const result2 = await nclient.execute("getaddednodeinfo",[]);
+      assert.strictEqual(result2.length,1);
+      const newNode = nodes[2].addednode;
+      //Add a different node, this time result should be 2
+      await nclient.execute('addnode', [newNode, 'add']);
+      const res3 = await nclient.execute("getaddednodeinfo",[]);
+      assert.strictEqual(res3.length,2);
 
+    });
     it('should rpc getnodeaddresses', async () => {
       const newHosts = [
         {

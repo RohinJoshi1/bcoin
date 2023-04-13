@@ -1,0 +1,27 @@
+{
+  "encrypted": false,
+  "key": {
+    "xprivkey": "tprv8ZgxMBicQKsPekGsXwYU5HxQZh2uLtLpB1HgybpZaEaeZt9TcbL3BCMf3Q9Bx6QzzEqj6qLY96hfpCJJ7SbVWXcc98WhUyuAd9SnAnR1bB7"
+  },
+  "mnemonic": {
+    "bits": 256,
+    "language": "english",
+    "entropy": "9bd95190d16b7b4978b12b9d94ebfcdf23ebbe988bf3dafd9676dad884badbe2",
+    "phrase": "orange skin goddess people response pigeon tissue century outside point you salad dirt tent giraffe lazy sustain uncover oval remember marriage frost hurdle elegant"
+  }
+}
+
+#ADDRESS
+{
+  "name": "default",
+  "account": 0,
+  "branch": 0,
+  "index": 1,
+  "witness": true,
+  "nested": false,
+  "publicKey": "039560ddde51a9ceb08905d6f99b7a3d280f2ef96043af62db36a370d526ca3866",
+  "script": null,
+  "program": "00146815221f5aaf24911f14f44cff957b47f03236cb",
+  "type": "witness",
+  "address": "bcrt1qdq2jy8664ujfz8c573x0l9tmglcrydkt507eqm"
+}
